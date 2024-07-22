@@ -1,0 +1,22 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "_fonts";
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    font-family: rem;
+}
+
+.phx-connected,
+.phx-disconnected,
+.phx-loading {
+    height: 100%;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: semibold;
+}

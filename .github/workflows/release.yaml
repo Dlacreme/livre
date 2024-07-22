@@ -1,0 +1,39 @@
+name: release
+run-name: ${{ github.actor }}
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-push-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: asdf cache
+        id: asdf-cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.asdf/
+          key: ${{ runner.os }}-${{ hashFiles('**/.tool-versions') }}
+
+      - name: Install CD tools from .tool-versions
+        if: steps.asdf-cache.outputs.cache-hit != 'true'
+        uses: asdf-vm/actions/install@v2
+
+      - name: Setup Docker Buildx
+        run: |
+          docker buildx create --use
+          docker buildx inspect --bootstrap
+
+      - name: Build and push Docker images
+        run: |
+          docker buildx build --platform linux/amd64 -t dlacreme/livre:latest . --push
+         ## docker buildx build --platform linux/amd64,linux/arm64 -t dlacreme/livre:latest . --push

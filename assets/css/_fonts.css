@@ -1,0 +1,49 @@
+@font-face {
+    font-family: rem;
+    src: url(/fonts/rem/rem.ttf);
+}
+
+@font-face {
+    font-family: rem;
+    src: url(/fonts/rem/rem-italic.ttf);
+    font-style: italic;
+}
+
+@font-face {
+    font-family: rem;
+    src: url(/fonts/rem/rem-bold.ttf);
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: rem;
+    src: url(/fonts/rem/rem-bold-italic.ttf);
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: rem;
+    src: url(/fonts/rem/rem-semibold.ttf);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: rem;
+    src: url(/fonts/rem/rem-semibold-italic.ttf);
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: rem;
+    src: url(/fonts/rem/rem-light.ttf);
+    font-weight: light;
+}
+
+@font-face {
+    font-family: rem;
+    src: url(/fonts/rem/rem-light-italic.ttf);
+    font-weight: light;
+    font-style: italic;
+}
