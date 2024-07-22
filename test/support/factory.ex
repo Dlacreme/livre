@@ -8,7 +8,6 @@ defmodule LivreTest.Factory do
   """
   alias Livre.Repo
   alias Livre.Accounts.{Session, User}
-  alias Livre.Creators.Channel
 
   def build(:user) do
     uniq_int = System.unique_integer()
@@ -39,18 +38,6 @@ defmodule LivreTest.Factory do
       user_agent: "local-test",
       expired_at: expiration_date,
       token: :crypto.strong_rand_bytes(8)
-    }
-  end
-
-  def build(:channel) do
-    uniq_int = System.unique_integer()
-
-    user = insert!(:user)
-
-    %Channel{
-      label: "New channel test",
-      slug: "chan#{uniq_int}",
-      user_id: user.id
     }
   end
 

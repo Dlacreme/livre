@@ -8,17 +8,17 @@ defmodule Livre.Query.Helper do
 
   Usage:
 
-  iex> channel = insert!(:channel)
-  ...> from(c in Channel)
-  ...> |> Helper.where_eq(:slug, channel.slug)
+  iex> user = insert!(:user)
+  ...> from(u in User)
+  ...> |> Helper.where_eq(:email, user.email)
   ...> |> Livre.Repo.one()
-  channel
+  user
 
-  iex> channel = insert!(:channel, %{picture_url: nil})
-  ...> from(c in Channel)
+  iex> user = insert!(:user, %{picture_url: nil})
+  ...> from(u in User)
   ...> |> Helper.where_eq(:picture_url, nil)
   ...> |> Livre.Repo.one()
-  channel
+  user
   """
   def where_eq(query, key, value) when is_nil(value) do
     where_nil(query, key)
@@ -37,7 +37,7 @@ defmodule Livre.Query.Helper do
   @doc """
   Print an Ecto query into a SQL string and return the query itself
 
-  iex> q = from(c in Channel)
+  iex> q = from(u in User)
   ...> Helper.print_sql(q)
   q
   """

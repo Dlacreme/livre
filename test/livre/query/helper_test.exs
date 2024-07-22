@@ -3,6 +3,6 @@ defmodule Livre.Query.HelperTest do
   alias Livre.Query.Helper
   import LivreTest.Factory
   import Ecto.Query
-  alias Livre.Creators.Channel
+  alias Livre.Accounts.User
   doctest Livre.Query.Helper
 end

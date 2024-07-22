@@ -22,7 +22,7 @@ defmodule Livre.Accounts.Session do
     now = DateTime.utc_now()
     q = Ecto.Query.from(s in __MODULE__)
 
-    if opts[:include_expired?] == false do
+    if opts[:include_expired?] == true do
       Ecto.Query.where(q, [s], s.expired_at > ^now)
     else
       q

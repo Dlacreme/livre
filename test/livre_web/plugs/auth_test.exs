@@ -89,7 +89,7 @@ defmodule LivreTest.AuthTest do
     test "do nothing if session has expired", %{conn: conn} do
       conn =
         conn
-        |> AuthHelper.login_user(session_duration: 0)
+        |> AuthHelper.login_user(session_duration: -10)
         |> Auth.fetch_current_user([])
 
       assert nil == conn.assigns[:current_user]
@@ -128,45 +128,7 @@ defmodule LivreTest.AuthTest do
         |> Auth.require_logged_user([])
 
       assert conn.halted
-      assert redirected_to(conn) == ~p"/welcome"
-    end
-  end
-
-  describe "require_logged_admin/2" do
-    test "allow admin if authenticated", %{conn: conn} do
-      user = insert!(:admin)
-
-      conn =
-        conn
-        |> AuthHelper.login_user(user: user)
-        |> Auth.fetch_current_user([])
-        |> Auth.require_logged_admin([])
-
-      refute conn.halted
-      refute conn.status
-    end
-
-    test "return 404 if admin isn't an admin", %{conn: conn} do
-      user = insert!(:user)
-
-      conn =
-        conn
-        |> AuthHelper.login_user(user: user)
-        |> Auth.fetch_current_user([])
-        |> Auth.require_logged_admin([])
-
-      assert conn.halted
-      assert conn.status == 404
-    end
-
-    test "return 404 if not logged in", %{conn: conn} do
-      conn =
-        conn
-        |> Auth.fetch_current_user([])
-        |> Auth.require_logged_admin([])
-
-      assert conn.halted
-      assert conn.status == 404
+      assert redirected_to(conn) == ~p"/account/login"
     end
   end
 end

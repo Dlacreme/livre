@@ -26,7 +26,7 @@ defmodule Livre.Accounts.User do
     if opts[:include_deleted?] == false do
       Ecto.Query.where(q, [u], is_nil(u.deleted_at))
     else
-      q
+      Ecto.Query.where(q, [u], not is_nil(u.deleted_at))
     end
   end
 

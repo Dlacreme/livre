@@ -29,7 +29,7 @@ defmodule LivreWeb.UploadComponents do
           id={"preview-#{@field.name}"}
           src={@preview}
           class="w-full h-full absolute top-0 right-0 left-0 bottom-0"
-          alt="channel picture"
+          alt="picture"
         />
         <div class="bg-slate-500/10 opacity-0 hover:opacity-100 cursor-pointer absolute top-0 right-0 left-0 bottom-0 flex justify-center items-center">
           <ButtonComponents.fake style={:brand} size={:xs}>

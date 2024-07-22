@@ -3,7 +3,7 @@ defmodule Livre.AccountsTest do
 
   use Livre.Query,
     repo: Livre.Repo,
-    with_schemas: [
+    schemas: [
       Livre.Accounts.Session
     ]
 
