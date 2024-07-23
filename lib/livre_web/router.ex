@@ -45,8 +45,7 @@ defmodule LivreWeb.Router do
       on_mount: [{LivreWeb.Auth, :ensure_logged_user}]
     ) do
       live "/", FeedLive
-      get "/", FeedController, :index
-      get "/profile/:id", ProfileController, :display
+      live "/profile/:id", ProfileLive
     end
   end
 

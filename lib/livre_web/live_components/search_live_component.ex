@@ -41,7 +41,10 @@ defmodule LivreWeb.SearchLiveComponent do
     ~H"""
     <div class="w-full flex flex-col">
       <%= for result <- @results do %>
-        <a href={"/profile/#{result.id}"} class="px-4 py-2 display-block"><%= result.name %></a>
+        <a href={"/profile/#{result.id}"} class="px-4 py-2 display-block">
+          <img width="24px" height="24px" src={result.picture_url} />
+          <%= result.name %>
+        </a>
       <% end %>
     </div>
     """
