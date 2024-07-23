@@ -7,6 +7,8 @@ defmodule LivreWeb.AccountController do
   end
 
   def logout(conn, _params) do
+    IO.inspect(conn, label: "conn")
+
     conn
     |> Auth.logout()
     |> redirect(to: ~p"/account/login")
