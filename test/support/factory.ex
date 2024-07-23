@@ -7,7 +7,7 @@ defmodule LivreTest.Factory do
   insert!(:user, %{name: "hello"})
   """
   alias Livre.Repo
-  alias Livre.Repo.{Session, User}
+  alias Livre.Repo.{Session, User, Friendship}
 
   def build(:user) do
     uniq_int = System.unique_integer()
@@ -22,6 +22,14 @@ defmodule LivreTest.Factory do
     %User{}
     |> User.changeset(valid_attrs)
     |> Ecto.Changeset.apply_action!(:update)
+  end
+
+  def build(:friendship) do
+    %Friendship{
+      from: insert!(:user),
+      to: insert!(:user),
+      status: :sent
+    }
   end
 
   def build(:session) do

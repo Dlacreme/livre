@@ -26,4 +26,17 @@ defmodule Livre.Social do
     |> limit(^nb_max_hits)
     |> Repo.all()
   end
+
+  @doc """
+  Return all friend ids for a given user
+
+  Usage:
+
+  	iex> user = insert!(:user)
+  	...> insert!(:friendship, %{from: user, status: :approved})
+  	...> insert!(:friendship, %{to: user, status: :approved})
+
+  """
+  def get_friend_ids(user_id) do
+  end
 end
