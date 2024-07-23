@@ -1,3 +1,41 @@
-<div>
-  login
+<div class="sign-in-gradient h-full">
+  <Layout.container class="sign-in-gradient">
+    <div class="flex h-full">
+      <div class="w-2/3 flex flex-col justify-center h-full">
+        <p class="text-brand font-semibold mb-12">
+          <%= gettext("Facelivre helps you connect and share with the people in your people.") %>
+        </p>
+        <div>
+          Welcome to Facebook... in 2010! 🌐✨ <br />
+          This is a lovingly crafted blast from the past, created purely for fun and nostalgic purposes.<br /><br />
+          Please note:
+          <ul>
+            <li>
+              Time Machine Not Included: Despite our best efforts, this site won't actually transport you back to 2010. Sorry, no DeLoreans here! 🚗💨
+            </li>
+            <li>
+              Not the Real Deal: This isn't the real Facebook. Mark Zuckerberg did not endorse this, and we don't have his hoodie or his billions. 🏢💸
+            </li>
+            <li>
+              Data Privacy: Unlike the real Facebook, we don’t want your data. Feel free to use a fake name, a silly photo, and a password you'll never remember! 🔒🤡
+            </li>
+            <li>
+              Bugs & Glitches: Any bugs you encounter are just bonus features, adding to the authentic 2010 experience. 🐛✨
+            </li>
+            <li>
+              No Customer Support: Our customer service team is as real as MySpace's comeback. 📞❌
+            </li>
+          </ul>
+          So, relax, have fun, and enjoy this trip down memory lane. Just don't take it too seriously – it's all in good fun! 😜🎉
+        </div>
+      </div>
+      <div class="w-1/3 flex flex-col justify-center items-end">
+        <Button.google_login>
+          <.link class="text-white" href={~p"/sso/login/google"}>
+            <%= gettext("login with google") %>
+          </.link>
+        </Button.google_login>
+      </div>
+    </div>
+  </Layout.container>
 </div>
