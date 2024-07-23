@@ -7,9 +7,9 @@
     <div>
       <%= if @current_user do %>
         <Interactive.floating_toggle id="user-menu">
-          <Presenter.entity
+          <Presenter.profile
             picture_url={@current_user.picture_url}
-            label={@current_user.name || @current_user.email}
+            name={@current_user.name || @current_user.email}
           />
           <:content>
             <div class="flex flex-col">

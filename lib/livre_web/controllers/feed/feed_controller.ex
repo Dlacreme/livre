@@ -1,4 +1,4 @@
-defmodule LivreWeb.DashboardController do
+defmodule LivreWeb.FeedController do
   use LivreWeb, :controller
 
   def index(conn, _params) do

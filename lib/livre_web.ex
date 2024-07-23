@@ -126,6 +126,7 @@ defmodule LivreWeb do
       alias LivreWeb.PresenterComponents, as: Presenter
       alias LivreWeb.InteractiveComponents, as: Interactive
       alias LivreWeb.UploadComponents, as: Upload
+      alias LivreWeb.PresenterComponents, as: Presenter
 
       import LivreWeb.Gettext
 
