@@ -41,13 +41,12 @@ defmodule LivreWeb.Router do
   scope "/", LivreWeb do
     pipe_through [:browser, :require_logged_user]
 
-    get "/", FeedController, :index
-
-    get "/profile/:id", ProfileController, :display
-
     live_session(:require_logged_user,
       on_mount: [{LivreWeb.Auth, :ensure_logged_user}]
     ) do
+      live "/", FeedLive
+      get "/", FeedController, :index
+      get "/profile/:id", ProfileController, :display
     end
   end
 

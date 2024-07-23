@@ -3,6 +3,25 @@
     <div>
       <Branding.logo />
     </div>
+
+    <%= if @live_enabled do %>
+      <div class="flex-grow ml-8 mr-8 flex items-center">
+        <div class="mr-12">
+          <.live_component
+            class="mr-12"
+            module={LivreWeb.NotificationLiveComponent}
+            id="notif-bar"
+          />
+        </div>
+        <div class="w-96">
+          <.live_component
+            module={LivreWeb.SearchLiveComponent}
+            id="search-input"
+            current_user={@current_user}
+          />
+        </div>
+      </div>
+    <% end %>
     <div class="text-white flex flex-row items-center">
       <%= if @current_user do %>
         <Button.simple>

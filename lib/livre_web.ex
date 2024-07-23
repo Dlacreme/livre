@@ -71,7 +71,7 @@ defmodule LivreWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {LivreWeb.Layouts, :app}
+        layout: {LivreWeb.Layouts, :live_app}
 
       unquote(html_helpers())
     end
