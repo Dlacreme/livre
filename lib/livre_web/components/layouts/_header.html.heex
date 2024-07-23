@@ -1,31 +1,25 @@
-<header class="flex bg-brand justify-between items-center py-4 px-8">
-  <div class="w-full max-w-screen-xl m-auto">
+<header class="flex bg-brand py-4 px-8">
+  <div class="w-full max-w-screen-xl m-auto flex justify-between items-center">
     <div>
       <Branding.logo />
     </div>
-    <div></div>
-    <div>
+    <div class="text-white flex flex-row items-center">
       <%= if @current_user do %>
-        <Interactive.floating_toggle id="user-menu">
-          <Presenter.profile
-            picture_url={@current_user.picture_url}
-            name={@current_user.name || @current_user.email}
-          />
-          <:content>
-            <div class="flex flex-col">
-              <%= for {text, href, icon} <- [
-            {gettext("logout"), ~p"/account/logout", "hero-x-circle"}
-          ] do %>
-                <Button.simple>
-                  <.link href={href} class="flex items-center">
-                    <.icon name={icon} class="mr-2" />
-                    <span><%= text %></span>
-                  </.link>
-                </Button.simple>
-              <% end %>
-            </div>
-          </:content>
-        </Interactive.floating_toggle>
+        <Button.simple>
+          <.link href={~p"/"} class="flex items-center">
+            <span><%= gettext("Home") %></span>
+          </.link>
+        </Button.simple>
+        <Button.simple>
+          <.link href={~p"/profile/me"} class="flex items-center">
+            <span><%= gettext("Profile") %></span>
+          </.link>
+        </Button.simple>
+        <Button.simple>
+          <.link href={~p"/account/logout"} class="flex items-center">
+            <span><%= gettext("Logout") %></span>
+          </.link>
+        </Button.simple>
       <% else %>
       <% end %>
     </div>

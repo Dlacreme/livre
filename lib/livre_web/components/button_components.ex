@@ -18,7 +18,7 @@ defmodule LivreWeb.ButtonComponents do
     <button
       type={@type}
       class={[
-        "border rounded-full border-zinc-900 min-w-0",
+        "border min-w-0",
         @class
       ]}
     >
@@ -119,16 +119,16 @@ defmodule LivreWeb.ButtonComponents do
   end
 
   defp generic_class() do
-    "rounded phx-submit-loading:opacity-75 text-sm px-2 py-2 text-zinc-900 dark:text-white dark:enabled:active:text-zinc-900 dark:text-white/50 h-10 disabled:opacity-75"
+    "phx-submit-loading:opacity-75 px-2 py-2 h-10 disabled:opacity-75"
   end
 
   defp style_class(style) do
     case style do
       :brand ->
-        "bg-brand text-lg text-white enabled:hover:bg-brand-400 enabled:active:bg-brand-600"
+        "text-white enabled:hover:bg-brand-400 enabled:active:bg-brand-600"
 
       _ ->
-        "enabled:hover:bg-zinc-300 enabled:active:bg-zinc-400 dark:enabled:hover:bg-zinc-800 dark:enabled:active:bg-zinc-950"
+        "enabled:hover:font-bold enabled:active:font-standard"
     end
   end
 
@@ -147,7 +147,7 @@ defmodule LivreWeb.ButtonComponents do
       type="button"
       class={[
         generic_class(),
-        "font-light w-56 max-w-56 text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
+        "font-light w-56 max-w-56 text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between mr-2 mb-2"
       ]}
     >
       <svg

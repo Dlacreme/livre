@@ -14,9 +14,9 @@ module.exports = {
   ],
   theme: {
     fontSize: {
-      xs: ['12px', '14px'],
-      sm: ['16px', '20px'],
-      base: ['18px', '24px'],
+      xs: ['10px', '12px'],
+      sm: ['12px', '14px'],
+      base: ['14px', '16px'],
       lg: ['22px', '28px'],
       xl: ['26px', '32px'],
     },
