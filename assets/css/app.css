@@ -20,3 +20,8 @@ h2 {
     font-size: 1.5rem;
     font-weight: semibold;
 }
+
+.sign-in-gradient {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(209, 214, 231, 1) 100%);
+}

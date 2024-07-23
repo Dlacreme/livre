@@ -22,20 +22,16 @@ module.exports = {
     },
     extend: {
       colors: {
-        brand: "#7b2cbf",
-        "brand-200": "#e0aaff",
-        "brand-300": "#c77dff",
-        "brand-400": "#9d4edd",
-        "brand-500": "#7b2cbf",
-        "brand-600": "#5a189a",
-        "brand-700": "#3c096c",
-        "brand-800": "#240046",
-        "brand-900": "#10002b"
+        brand: "#3b589c",
+        "brand-200": "#3b589c",
+        "brand-300": "#3b589c",
+        "brand-400": "#3b589c",
+        "brand-500": "#3b589c",
+        "brand-600": "#3b589c",
+        "brand-700": "#3b589c",
+        "brand-800": "#3b589c",
+        "brand-900": "#3b589c"
       },
-      backgroundImage: {
-        'logo-img': "url('/images/logo.png')",
-        'logo-dark-img': "url('/images/logo-white.png')",
-      }
     },
   },
   plugins: [

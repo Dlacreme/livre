@@ -36,7 +36,7 @@ defmodule LivreWeb.LayoutComponents do
 
     ~H"""
     <div class="h-full w-full">
-      <div class={"flex flex-col justify-center #{@cls_type} #{@cls_padding} #{@class}"}>
+      <div class={"flex flex-col #{@cls_type} #{@cls_padding} #{@class}"}>
         <%= render_slot(@inner_block) %>
       </div>
     </div>

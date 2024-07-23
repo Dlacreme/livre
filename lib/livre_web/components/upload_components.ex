@@ -12,9 +12,6 @@ defmodule LivreWeb.UploadComponents do
     doc: "a form field struct retrieved from the form, for example: @form[:email]"
 
   def input(assigns) do
-    IO.inspect(assigns[:preview], label: "preview")
-    IO.inspect(assigns[:field], label: "field")
-
     ~H"""
     <div>
       <label

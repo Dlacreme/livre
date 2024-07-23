@@ -47,3 +47,8 @@
     font-weight: light;
     font-style: italic;
 }
+
+@font-face {
+    font-family: logo;
+    src: url(/fonts/mulish/Mulish-ExtraBold.ttf);
+}
