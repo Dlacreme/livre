@@ -4,11 +4,11 @@ defmodule LivreWeb.ProfileController do
   use Livre.Repo.Query,
     schemas: [Livre.Repo.User]
 
-  def index(conn, %{"id" => "me"}) do
-    index(conn, %{"id" => conn.assigns.current_user.id})
+  def display(conn, %{"id" => "me"}) do
+    display(conn, %{"id" => conn.assigns.current_user.id})
   end
 
-  def index(conn, %{"id" => id}) when is_binary(id) do
+  def display(conn, %{"id" => id}) when is_binary(id) do
     case fetch_user(id) do
       user when is_struct(user, User) ->
         conn
@@ -16,7 +16,7 @@ defmodule LivreWeb.ProfileController do
         |> render(:index)
 
       _any ->
-        {:error, {404, "user_not_found"}}
+        {:error, {404, "user not found"}}
     end
   end
 
@@ -24,5 +24,8 @@ defmodule LivreWeb.ProfileController do
     User.from()
     |> where_eq(:id, id)
     |> Repo.one()
+  rescue
+    # if id is not a valid uuid
+    _any -> nil
   end
 end
