@@ -1,13 +1,16 @@
 defmodule Livre.Accounts do
   @moduledoc """
-  User management
+  Manager User & Sessions
   """
-  alias Livre.Repo
-  alias Livre.Accounts.Session
+  use Livre.Repo.Query, schemas: [Livre.Repo.Session]
+
+  def anonymise_user(_user) do
+    {:error, :not_implemented}
+  end
 
   @doc """
   Expire a session regardless of its current status.
-  If the session was already expired - we will override
+  If the session was already expired - it override
   the 'expired_at' with the current datetime.
   """
   def expire_session(session) when is_struct(session, Session) do

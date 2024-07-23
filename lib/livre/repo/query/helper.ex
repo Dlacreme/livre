@@ -1,4 +1,4 @@
-defmodule Livre.Query.Helper do
+defmodule Livre.Repo.Query.Helper do
   @moduledoc """
   """
   import Ecto.Query

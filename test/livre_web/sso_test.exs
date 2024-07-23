@@ -2,7 +2,7 @@ defmodule LivreWeb.SSOTest do
   use LivreTest.DataCase, async: true
 
   alias LivreWeb.SSO
-  alias Livre.Accounts.User
+  alias Livre.Repo.User
   import LivreTest.Factory
 
   setup do

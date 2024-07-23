@@ -1,10 +1,9 @@
 defmodule Livre.AccountsTest do
   use LivreTest.DataCase, async: true
 
-  use Livre.Query,
-    repo: Livre.Repo,
+  use Livre.Repo.Query,
     schemas: [
-      Livre.Accounts.Session
+      Livre.Repo.Session
     ]
 
   import LivreTest.Factory

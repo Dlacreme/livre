@@ -1,6 +1,5 @@
-defmodule Livre.Accounts.User do
-  alias Ecto.Changeset
-  @behaviour Livre.Query.Schema
+defmodule Livre.Repo.User do
+  @behaviour Livre.Repo.Schema
   require Ecto.Query
 
   use Ecto.Schema
@@ -19,11 +18,25 @@ defmodule Livre.Accounts.User do
     timestamps(type: :utc_datetime)
   end
 
-  @impl Livre.Query.Schema
-  def from(opts \\ [include_deleted?: false]) do
+  @doc """
+  Start a query with non-anonymised user by default.
+  Use `include_deleted: true` to include all users.
+
+  Usage:
+
+  	iex> user = insert!(:user)
+  	...> deleted_at = DateTime.utc_now()
+  	...> |> DateTime.add(-1, :day)
+  	...> |> DateTime.truncate(:second)
+  	...> insert!(:user, %{deleted_at: deleted_at})
+  	...> Livre.Repo.all(User.from())
+  	[user]
+  """
+  @impl Livre.Repo.Schema
+  def from(opts \\ [include_deleted: false]) do
     q = Ecto.Query.from(u in __MODULE__)
 
-    if opts[:include_deleted?] == false do
+    if opts[:include_deleted] == false do
       Ecto.Query.where(q, [u], is_nil(u.deleted_at))
     else
       Ecto.Query.where(q, [u], not is_nil(u.deleted_at))

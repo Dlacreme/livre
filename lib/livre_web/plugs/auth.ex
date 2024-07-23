@@ -2,10 +2,10 @@ defmodule LivreWeb.Auth do
   @moduledoc """
   Handle authentication
   """
-  use Livre.Query,
+  use Livre.Repo.Query,
     schemas: [
-      Livre.Accounts.User,
-      Livre.Accounts.Session
+      Livre.Repo.User,
+      Livre.Repo.Session
     ]
 
   import Plug.Conn
@@ -23,7 +23,8 @@ defmodule LivreWeb.Auth do
   @cookie "_livre_session"
 
   def login_user(conn, user, opts \\ []) do
-    session_duration = Keyword.get(opts, :session_duration, @session_duration)
+    session_duration =
+      Keyword.get(opts, :session_duration, @session_duration)
 
     case create_session(user, get_ip(conn), get_user_agent(conn), session_duration) do
       {:ok, session} ->

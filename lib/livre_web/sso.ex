@@ -2,9 +2,10 @@ defmodule LivreWeb.SSO do
   @moduledoc """
   Handle every SSO related actions
   """
-  use Livre.Query, repo: Livre.Repo
   require Logger
-  alias Livre.Accounts.User
+
+  use Livre.Repo.Query,
+    schemas: [Livre.Repo.User]
 
   use Phoenix.VerifiedRoutes,
     endpoint: LivreWeb.Endpoint,

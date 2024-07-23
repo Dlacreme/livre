@@ -1,11 +1,9 @@
 defmodule LivreTest.AuthTest do
   use LivreWebTest.ConnCase, async: true
   import LivreTest.Factory
-  import Ecto.Query, only: [from: 2]
   alias LivreWebTest.AuthHelper
   alias LivreWeb.Auth
-  alias Livre.Repo
-  alias Livre.Accounts.Session
+  use Livre.Repo.Query, schemas: [Livre.Repo.Session]
 
   setup %{conn: conn} do
     conn =

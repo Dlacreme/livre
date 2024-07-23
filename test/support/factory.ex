@@ -7,7 +7,7 @@ defmodule LivreTest.Factory do
   insert!(:user, %{name: "hello"})
   """
   alias Livre.Repo
-  alias Livre.Accounts.{Session, User}
+  alias Livre.Repo.{Session, User}
 
   def build(:user) do
     uniq_int = System.unique_integer()
