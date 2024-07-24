@@ -54,7 +54,8 @@ defmodule LivreWeb.AskFriendComponent do
   end
 
   def handle_event("approve", _params, socket) do
-    {:noreply, Social.confirm_friendship(socket.assigns.friendship)}
+    {:ok, friendship} = Social.confirm_friendship(socket.assigns.friendship)
+    {:noreply, assign(socket, friendship: friendship)}
   end
 
   def handle_event("remove", _params, socket) do

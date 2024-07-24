@@ -1,9 +1,4 @@
 defmodule LivreWeb.NotificationLiveComponent do
-  @moduledoc """
-  This is a fully indenpendant LiveComponent
-  	that fetch data from our database and listen
-  	to upcoming notification through Livre.PubSub
-  """
   use LivreWeb, :live_component
   alias LivreWeb.CoreComponents
   import LivreWeb.Gettext
@@ -37,9 +32,17 @@ defmodule LivreWeb.NotificationLiveComponent do
 
   def render_notifications(assigns) do
     ~H"""
-    <div>
+    <div class="flex flex-col">
       <%= for notif <- @notifications do %>
-        <%= notif.message %>
+        <%= if notif.action == nil do %>
+          <div class="p-2">
+            <%= notif.message %>
+          </div>
+        <% else %>
+          <a href={notif.action} class="p-2 cursor-pointer">
+            <%= notif.message %>
+          </a>
+        <% end %>
       <% end %>
     </div>
     """
