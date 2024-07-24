@@ -1,9 +1,6 @@
 <Layout.container>
   <div class="flex">
     <img src={@user.picture_url} width="200px" height="200px" />
-<<<<<<< HEAD
-    <h1 class="text-xl ml-4"><%= @user.name %></h1>
-=======
     <div class="flex w-full">
       <h1 class="text-xl ml-4 flex-grow"><%= @user.name %></h1>
       <%= if @myself? == false do %>
@@ -16,6 +13,5 @@
         />
       <% end %>
     </div>
->>>>>>> friends
   </div>
 </Layout.container>
