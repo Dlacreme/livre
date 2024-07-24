@@ -5,16 +5,14 @@
   <div>
     <form class="w-full flex items-center" phx-submit="create">
       <div class="flex-grow">
-        <Form.input
+        <input
+          class="mb-6 mt-4 w-full"
           type="text"
           name="content"
           value={@post_content}
           placeholder={gettext("What's on your mind?")}
         />
       </div>
-      <Button.simple style={:brand} class="mb-4 ml-2" type={:submit}>
-        <%= gettext("post") %>
-      </Button.simple>
     </form>
   </div>
 
@@ -24,12 +22,17 @@
         <img src={post.user.picture_url} height="50px" width="50px" class="mr-4" />
 
         <div class="flex-grow">
-          <span class="font-bold text-brand">
-            <%= post.user.name %>
-          </span>
+          <div class="flex">
+            <span class="font-bold text-brand flex-grow">
+              <%= post.user.name %>
+            </span>
+            <span class="text-slate-500 text-s">
+              <%= format_date(post.inserted_at) %>
+            </span>
+          </div>
           <p class="mt-2 mb-2 text-lg"><%= post.content %></p>
 
-          <%= for comment <- post.comments do %>
+          <%= for comment <- order_comments(post.comments) do %>
             <div class="bg-brand/30 mb-1 flex items-start p-2">
               <img src={comment.user.picture_url} width="30px" height="30px" class="mr-1" />
               <p>
@@ -42,6 +45,7 @@
             <form class="flex" phx-submit="comment">
               <div class="flex-grow">
                 <input type="hidden" name="post_id" value={post.id} readonly />
+                <input type="hidden" name="post_owner_id" value={post.user_id} readonly />
                 <input
                   class="w-full p-1"
                   type="text"
@@ -49,9 +53,6 @@
                   placeholder={gettext("Write a comment...")}
                 />
               </div>
-              <Button.simple style={:brand} class="mb-4 ml-2" type={:submit}>
-                <%= gettext("comment") %>
-              </Button.simple>
             </form>
           </div>
         </div>
