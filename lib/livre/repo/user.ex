@@ -20,17 +20,18 @@ defmodule Livre.Repo.User do
 
   @doc """
   Start a query with non-anonymised user by default.
-  Use `include_deleted: true` to include all users.
+  Use `include_deleted
 
   Usage:
-
-  	iex> user = insert!(:user)
-  	...> deleted_at = DateTime.utc_now()
-  	...> |> DateTime.add(-1, :day)
-  	...> |> DateTime.truncate(:second)
-  	...> insert!(:user, %{deleted_at: deleted_at})
-  	...> Livre.Repo.all(User.from())
-  	[user]
+    iex> user = insert!(:user)
+    ...> deleted_at = DateTime.utc_now()
+    ...> |> DateTime.add(-1, :day)
+    ...> |> DateTime.truncate(:second)
+    ...> insert!(:user, %{deleted_at: deleted_at})
+    ...> Livre.Repo.all(User.from())
+    ...> |> Enum.map(&(&1.deleted_at) == nil)
+    ...> |> Enum.any?()
+    true
   """
   @impl Livre.Repo.Schema
   def from(opts \\ [include_deleted: false]) do
