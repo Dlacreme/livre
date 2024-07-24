@@ -64,37 +64,6 @@ defmodule Livre.Social do
   end
 
   @doc """
-
-    def get_friends(user_id) when is_binary(user_id) do
-      # since we don't know if `user_id` is in the 'from'
-      # or 'to' column we query both distinctively and merge
-      # the results.
-      # Otherwise we would end up with the user_id listed
-      # as a friend of themself.
-      from_res =
-        Friendship.from()
-        |> join(:inner, [f], u in User, on: f.from_id == u.id)
-        |> get_friend_query(user_id)
-        |> Repo.all()
-
-      to_res =
-        Friendship.from()
-        |> join(:inner, [f], u in User, on: f.to_id == u.id)
-        |> get_friend_query(user_id)
-        |> Repo.all()
-
-      from_res ++ to_res
-    end
-  """
-
-  defp get_friend_query(q, user_id) do
-    q
-    |> where_eq(:status, :approved)
-    |> where_eq(:from_id, user_id)
-    |> select([f, u], {f, u})
-  end
-
-  @doc """
    Return the friendship status between 2 users.
    Status can be
    - :sent (pending)
@@ -189,5 +158,11 @@ defmodule Livre.Social do
         (field(fr, :from_id) == ^user2_id and field(fr, :to_id) == ^user1_id)
     )
     |> Repo.one()
+  end
+
+  def friend_suggestion(user_id) do
+    User.from()
+    |> where([u], field(u, :id) != ^user_id)
+    |> Repo.all()
   end
 end

@@ -21,7 +21,7 @@ defmodule LivreWeb.PresenterComponents do
 
   defp profile_row(assigns) do
     ~H"""
-    <div class="flex items-center justify-center">
+    <div class="flex items-start justify-start text-brand font-semibold">
       <img src={@picture_url} alt={@name} class="w-8 h-8 mr-2 rounded overflow-hidden" />
       <span><%= @name %></span>
     </div>

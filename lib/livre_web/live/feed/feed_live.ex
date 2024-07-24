@@ -1,6 +1,7 @@
 defmodule LivreWeb.FeedLive do
   use LivreWeb, :live_view
   alias Livre.Feed
+  alias Livre.Social
   alias Livre.Notification
   alias LivreWeb.LiveNotificationHelper
 
@@ -11,6 +12,7 @@ defmodule LivreWeb.FeedLive do
 
     {:ok,
      assign(socket,
+       friend_suggestion: Social.friend_suggestion(current_user_id),
        posts: Feed.get_feed(current_user_id),
        notifications: Notification.list(current_user_id),
        post_content: ""
