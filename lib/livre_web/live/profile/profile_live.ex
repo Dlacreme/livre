@@ -28,6 +28,20 @@ defmodule LivreWeb.ProfileLive do
     {:ok, socket}
   end
 
+  @impl true
+  def handle_event("remove_notif", %{"id" => notif_id}, socket) do
+    current_user_id = socket.assigns.current_user.id
+    Notification.delete(notif_id)
+    {:noreply, assign(socket, notifications: Notification.list(current_user_id))}
+  end
+
+  @impl true
+  def handle_event("read_notif", %{"id" => notif_id}, socket) do
+    current_user_id = socket.assigns.current_user.id
+    Notification.read(notif_id)
+    {:noreply, assign(socket, notifications: Notification.list(current_user_id))}
+  end
+
   def handle_info({:notification, _data}, socket) do
     {:noreply, assign(socket, notifications: Notification.list(socket.assigns.current_user.id))}
   end

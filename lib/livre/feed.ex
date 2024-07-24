@@ -25,6 +25,12 @@ defmodule Livre.Feed do
     |> Repo.all()
   end
 
+  @doc """
+  Create a new post
+
+  iex> user = insert!(:user)
+  ...> assert {:ok, post} = Feed.create_post(user.id, "this is a post")
+  """
   def create_post(user_id, content) when is_binary(user_id) when is_binary(content) do
     with changeset <- Post.changeset(%Post{}, %{user_id: user_id, content: content}),
          {:ok, _post} = res <- Repo.insert(changeset) do
@@ -35,6 +41,13 @@ defmodule Livre.Feed do
     end
   end
 
+  @doc """
+  Comment on an existing post
+
+  iex> user = insert!(:user)
+  ...> {:ok, post} = Feed.create_post(user.id, "this is a post")
+  ...> assert {:ok, com} = Feed.comment_post(user.id, post.id, user.id, "this is a comment")
+  """
   def comment_post(user_id, post_id, post_owner_id, content)
       when is_binary(user_id) and is_binary(post_id)
       when is_binary(content) do

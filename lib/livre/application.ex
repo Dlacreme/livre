@@ -37,6 +37,7 @@ defmodule Livre.Application do
   defp with_contextual_children(children, env) when env in [:test, :dev] do
     children ++
       [
+        # Starting a mock server in dev & test
         {Plug.Cowboy, scheme: :http, plug: LivreTest.ApiMock, options: [port: 14000]}
       ]
   end

@@ -24,7 +24,7 @@ defmodule Livre.Repo.User do
   Use `include_deleted
 
   Usage:
-    iex> user = insert!(:user)
+    iex> insert!(:user)
     ...> deleted_at = DateTime.utc_now()
     ...> |> DateTime.add(-1, :day)
     ...> |> DateTime.truncate(:second)

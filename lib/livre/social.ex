@@ -46,6 +46,9 @@ defmodule Livre.Social do
   end
 
   def get_friends(user_id) when is_binary(user_id) do
+    # we don't want to load the current_user profile
+    # everytime so we do 2 different queries and preload
+    # the user that is not the current user
     to_friends =
       Friendship.from()
       |> where([fr], fr.from_id == ^user_id)
@@ -160,6 +163,9 @@ defmodule Livre.Social do
     |> Repo.one()
   end
 
+  @doc """
+  Return a list of potential friends for a given user
+  """
   def friend_suggestion(user_id) do
     User.from()
     |> where([u], field(u, :id) != ^user_id)
