@@ -1,19 +1,20 @@
 <header class="flex bg-brand py-4 px-8">
   <div class="w-full max-w-screen-xl m-auto flex justify-between items-center">
-    <div>
+    <a href={~p"/"}>
       <Branding.logo />
-    </div>
+    </a>
 
     <%= if @live_enabled do %>
       <div class="flex-grow ml-8 mr-8 flex items-center">
         <div class="mr-12">
           <.live_component
-            class="mr-12"
             module={LivreWeb.NotificationLiveComponent}
             id="notif-bar"
+            current_user={@current_user}
+            notifications={Livre.Notification.list(@current_user.id)}
           />
         </div>
-        <div class="w-96">
+        <div class="w-96 ml-12">
           <.live_component
             module={LivreWeb.SearchLiveComponent}
             id="search-input"

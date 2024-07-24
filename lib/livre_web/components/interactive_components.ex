@@ -5,6 +5,8 @@ defmodule LivreWeb.InteractiveComponents do
   alias LivreWeb.CoreComponents
 
   attr :id, :string, required: true
+  attr :arrow?, :boolean, default: true
+  attr :content_style, :string, default: ""
   slot :inner_block, required: true
   slot :content, required: true
 
@@ -17,18 +19,21 @@ defmodule LivreWeb.InteractiveComponents do
         class="cursor-pointer flex items-center"
       >
         <%= render_slot(@inner_block) %>
-        <CoreComponents.icon
-          id={"#{@id}-arrow"}
-          name="hero-chevron-down"
-          class="ml-2 transition-all "
-        />
+        <%= if @arrow? do %>
+          <CoreComponents.icon
+            id={"#{@id}-arrow"}
+            name="hero-chevron-down"
+            class="ml-2 transition-all "
+          />
+        <% end %>
       </div>
       <div
         id={"#{@id}-content"}
         class={
-    	"border bg-brand rounded p-2 mt-4 " <>
+    	"border p-2 mt-4 z-50 " <>
     	"absolute end-0 start-0 " <>
-    	"transition-opacity ease-in-out duration-300 opacity-0 -z-50"}
+    	"transition-opacity ease-in-out duration-300 opacity-0 -z-50 " <>
+    	@content_style}
       >
         <%= render_slot(@content) %>
       </div>

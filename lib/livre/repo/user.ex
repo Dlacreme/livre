@@ -14,6 +14,7 @@ defmodule Livre.Repo.User do
     field :name, :string
     field :picture_url, :string
     field :deleted_at, :utc_datetime
+    has_many :notifications, Livre.Repo.Notification
 
     timestamps(type: :utc_datetime)
   end
