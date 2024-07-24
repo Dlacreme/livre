@@ -8,6 +8,7 @@ defmodule LivreWeb.ProfileLive do
   alias Livre.Social
   alias Livre.Notification
 
+  @impl true
   def mount(params, _session, socket) do
     socket =
       case get_user(params["id"], socket.assigns.current_user) do
@@ -42,6 +43,7 @@ defmodule LivreWeb.ProfileLive do
     {:noreply, assign(socket, notifications: Notification.list(current_user_id))}
   end
 
+  @impl true
   def handle_info({:notification, _data}, socket) do
     {:noreply, assign(socket, notifications: Notification.list(socket.assigns.current_user.id))}
   end

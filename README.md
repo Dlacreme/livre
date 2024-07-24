@@ -38,3 +38,4 @@ mix test
  - I'm not a big fan of meta-prog but I've been using it a bit to really highlight module that do SQL query (see Livre.Repo.Query)
  - I'm using contextes but still group all my schemas in `lib/livre/repo`. Otherwise I find it hard to differenciate between schema and normal modules
  - I tend to avoid too comments inside function, instead I use meaningful names
+ - I prefer to user guards rather than specs
