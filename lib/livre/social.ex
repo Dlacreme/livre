@@ -2,6 +2,8 @@ defmodule Livre.Social do
   use Livre.Repo.Query,
     schemas: [Livre.Repo.User, Livre.Repo.Friendship]
 
+  alias Livre.Notification
+
   require Ecto.Query
 
   @doc """
@@ -112,6 +114,7 @@ defmodule Livre.Social do
     %Friendship{}
     |> Friendship.changeset(%{from_id: from_id, to_id: to_id})
     |> Repo.insert()
+    |> Notification.maybe_push(to_id, "new friend request", "/profile/#{from_id}")
   rescue
     # we rely on a pure SQL constraints to avoid duplicate
     _any -> {:error, :relationship_exists}

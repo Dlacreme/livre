@@ -10,6 +10,30 @@ defmodule Livre.Notification do
   alias Livre.Notification.Publisher
 
   @doc """
+  Maybe push a notification if the first item of
+  the first parameter is `:ok`.
+  Returns the first parameters.
+  Useful to potentially send a notification
+  in a pipeline.
+
+  Usage:
+  	iex> user = insert!(:user)
+  	...> {:ok, "success"} = Notification.maybe_push({:ok, "success"}, user.id, "success action")
+  	...> {:error, "failure"} = Notification.maybe_push({:error, "failure"}, user.id, "failed action")
+  	...> assert 1 == length(Notification.list(user.id))
+  """
+  def maybe_push(payload, user_id, message, action \\ nil)
+
+  def maybe_push({:ok, _any} = payload, user_id, message, action) do
+    push(user_id, message, action)
+    payload
+  end
+
+  def maybe_push(any, _user_id, _message, _action) do
+    any
+  end
+
+  @doc """
   Create a new notification and broadcast
   on Livre.PubSub
 
