@@ -1,5 +1,5 @@
 defmodule LivreWeb.SearchLiveComponent do
-  use Phoenix.LiveComponent
+  use LivreWeb, :live_component
   import LivreWeb.Gettext
   alias Livre.Social
 

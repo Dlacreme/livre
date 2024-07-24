@@ -1,6 +1,17 @@
 <Layout.container>
   <div class="flex">
     <img src={@user.picture_url} width="200px" height="200px" />
-    <h1 class="text-xl ml-4"><%= @user.name %></h1>
+    <div class="flex w-full">
+      <h1 class="text-xl ml-4 flex-grow"><%= @user.name %></h1>
+      <%= if @myself? == false do %>
+        <.live_component
+          module={LivreWeb.AskFriendComponent}
+          id={"ask-friend-#{@current_user.id}-#{@user.id}"}
+          current_user={@current_user}
+          target_user_id={@user.id}
+          friendship={@friendship}
+        />
+      <% end %>
+    </div>
   </div>
 </Layout.container>

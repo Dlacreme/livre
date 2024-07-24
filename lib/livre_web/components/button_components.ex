@@ -125,7 +125,7 @@ defmodule LivreWeb.ButtonComponents do
   defp style_class(style) do
     case style do
       :brand ->
-        "text-white enabled:hover:bg-brand-400 enabled:active:bg-brand-600"
+        "text-white bg-brand enabled:hover:bg-brand-400 enabled:active:bg-brand-600"
 
       _ ->
         "enabled:hover:font-bold enabled:active:font-standard"
