@@ -25,11 +25,16 @@ defmodule LivreTest.Factory do
   end
 
   def build(:friendship) do
-    %Friendship{
-      from: insert!(:user),
-      to: insert!(:user),
+    from = insert!(:user)
+    to = insert!(:user)
+
+    %Friendship{}
+    |> Friendship.changeset(%{
+      from_id: from.id,
+      to_id: to.id,
       status: :sent
-    }
+    })
+    |> Ecto.Changeset.apply_action!(:update)
   end
 
   def build(:session) do

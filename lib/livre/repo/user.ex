@@ -15,9 +15,6 @@ defmodule Livre.Repo.User do
     field :picture_url, :string
     field :deleted_at, :utc_datetime
 
-    has_many :sent_friendships, Livre.Repo.Friendship, foreign_key: :from_id
-    has_many :received_friendships, Livre.Repo.Friendship, foreign_key: :to_id
-
     timestamps(type: :utc_datetime)
   end
 
