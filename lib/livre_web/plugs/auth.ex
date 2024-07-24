@@ -51,7 +51,7 @@ defmodule LivreWeb.Auth do
       conn
       |> renew_session()
       |> delete_resp_cookie(@cookie, sign: true, same_site: "Lax")
-      |> redirect(to: ~p"/welcome")
+      |> redirect(to: ~p"/")
     else
       _any -> conn
     end
@@ -78,6 +78,17 @@ defmodule LivreWeb.Auth do
     conn
     |> Phoenix.Controller.redirect(to: ~p"/account/login")
     |> halt()
+  end
+
+  def redirect_logged_user(%{assigns: %{current_user: current_user}} = conn, _opts)
+      when is_struct(current_user, User) do
+    conn
+    |> Phoenix.Controller.redirect(to: ~p"/")
+    |> halt()
+  end
+
+  def redirect_logged_user(conn, _opts) do
+    conn
   end
 
   def get_current_session_token(conn) do
@@ -142,7 +153,7 @@ defmodule LivreWeb.Auth do
     else
       socket =
         socket
-        |> Phoenix.LiveView.redirect(to: ~p"/welcome")
+        |> Phoenix.LiveView.redirect(to: ~p"/")
 
       {:halt, socket}
     end

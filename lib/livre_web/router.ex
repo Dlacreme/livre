@@ -20,10 +20,7 @@ defmodule LivreWeb.Router do
   scope "/", LivreWeb do
     pipe_through :browser
 
-    get "/welcome", LandingController, :index
-
     scope "/account" do
-      get "/login", AccountController, :login
       get "/logout", AccountController, :logout
     end
 
@@ -34,13 +31,21 @@ defmodule LivreWeb.Router do
   end
 
   scope "/", LivreWeb do
-    pipe_through [:browser, :require_logged_user]
+    pipe_through [:browser, :redirect_logged_user]
 
-    get "/", DashboardController, :index
+    scope "/account" do
+      get "/login", AccountController, :login
+    end
+  end
+
+  scope "/", LivreWeb do
+    pipe_through [:browser, :require_logged_user]
 
     live_session(:require_logged_user,
       on_mount: [{LivreWeb.Auth, :ensure_logged_user}]
     ) do
+      live "/", FeedLive
+      live "/profile/:id", ProfileLive
     end
   end
 

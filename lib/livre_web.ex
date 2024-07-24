@@ -71,7 +71,7 @@ defmodule LivreWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {LivreWeb.Layouts, :app}
+        layout: {LivreWeb.Layouts, :live_app}
 
       unquote(html_helpers())
     end
@@ -126,6 +126,7 @@ defmodule LivreWeb do
       alias LivreWeb.PresenterComponents, as: Presenter
       alias LivreWeb.InteractiveComponents, as: Interactive
       alias LivreWeb.UploadComponents, as: Upload
+      alias LivreWeb.PresenterComponents, as: Presenter
 
       import LivreWeb.Gettext
 

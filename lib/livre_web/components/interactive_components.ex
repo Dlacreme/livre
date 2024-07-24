@@ -26,7 +26,7 @@ defmodule LivreWeb.InteractiveComponents do
       <div
         id={"#{@id}-content"}
         class={
-    	"border border-slate-700 rounded p-2 mt-4 " <>
+    	"border bg-brand rounded p-2 mt-4 " <>
     	"absolute end-0 start-0 " <>
     	"transition-opacity ease-in-out duration-300 opacity-0 -z-50"}
       >

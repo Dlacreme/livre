@@ -194,7 +194,7 @@ defmodule LivreWeb.FormComponents do
   end
 
   defp generic_input_class() do
-    "rounded bg-transparent border border-transparent focus:border-zinc-400 bg-zinc-300 dark:bg-zinc-800 text-zinc-900 dark:text-white focus:ring-0 block w-full mt-2 mb-6"
+    "rounded bg-transparent border border-transparent focus:border-zinc-400 bg-zinc-300 text-zinc-900 focus:ring-0 block w-full mt-2 mb-6"
   end
 
   @doc """
