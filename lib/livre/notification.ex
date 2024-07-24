@@ -83,4 +83,15 @@ defmodule Livre.Notification do
     |> limit(100)
     |> Repo.all()
   end
+
+  def read(notif_id) when is_binary(notif_id) do
+    %Notification{id: notif_id}
+    |> Notification.changeset(%{status: :read})
+    |> Repo.update()
+  end
+
+  def delete(notif_id) when is_binary(notif_id) do
+    %Notification{id: notif_id}
+    |> Repo.delete()
+  end
 end
