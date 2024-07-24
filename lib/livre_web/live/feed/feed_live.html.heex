@@ -1,0 +1,83 @@
+<Layout.container>
+  <div class="flex">
+    <div class="w-1/4">
+      <h3 class="font-bold mb-8"><%= gettext("They are also on Facelivre") %></h3>
+      <div class="flex flex-col">
+        <%= for user <- @friend_suggestion do %>
+          <div class="mb-2">
+            <Presenter.profile
+              name={user.name}
+              link={"/profile/#{user.id}"}
+              picture_url={user.picture_url}
+            />
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="flex-grow">
+      <h1 class="font-semibold text-lg">
+        <%= gettext("News feed") %>
+      </h1>
+      <div>
+        <form class="w-full flex items-center" phx-submit="create">
+          <div class="flex-grow">
+            <input
+              class="mb-6 mt-4 w-full"
+              type="text"
+              name="content"
+              value={@post_content}
+              placeholder={gettext("What's on your mind?")}
+            />
+          </div>
+        </form>
+      </div>
+
+      <%= for post <- @posts do %>
+        <div class="mb-4">
+          <div class="flex items-start">
+            <img src={post.user.picture_url} height="50px" width="50px" class="mr-4" />
+
+            <div class="flex-grow">
+              <div class="flex">
+                <span class="font-bold text-brand flex-grow">
+                  <%= post.user.name %>
+                </span>
+                <span class="text-slate-500 text-s">
+                  <%= format_date(post.inserted_at) %>
+                </span>
+              </div>
+              <p class="mt-2 mb-2 text-lg"><%= post.content %></p>
+
+              <%= for comment <- order_comments(post.comments) do %>
+                <div class="bg-brand/30 mb-1 flex items-start p-2">
+                  <Presenter.profile
+                    name={comment.user.name}
+                    picture_url={comment.user.picture_url}
+                    link={"/profile/#{comment.user.id}"}
+                  />
+                  <p class="ml-1">
+                    <%= comment.content %>
+                  </p>
+                </div>
+              <% end %>
+              <div class="actions">
+                <form class="flex" phx-submit="comment">
+                  <div class="flex-grow">
+                    <input type="hidden" name="post_id" value={post.id} readonly />
+                    <input type="hidden" name="post_owner_id" value={post.user_id} readonly />
+                    <input
+                      class="w-full p-1"
+                      type="text"
+                      name="content"
+                      placeholder={gettext("Write a comment...")}
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</Layout.container>

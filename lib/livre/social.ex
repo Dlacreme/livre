@@ -33,10 +33,7 @@ defmodule Livre.Social do
 
   @doc """
   Return all friend for a given user.
-
-  Returns a tuple with the friendship as the first item and the
-  friend's user data as second item.
-
+  d
   Usage:
 
   	iex> user = insert!(:user)
@@ -49,31 +46,21 @@ defmodule Livre.Social do
   end
 
   def get_friends(user_id) when is_binary(user_id) do
-    # since we don't know if `user_id` is in the 'from'
-    # or 'to' column we query both distinctively and merge
-    # the results.
-    # Otherwise we would end up with the user_id listed
-    # as a friend of themself.
-    from_res =
+    to_friends =
       Friendship.from()
-      |> join(:inner, [f], u in User, on: f.from_id == u.id)
-      |> get_friend_query(user_id)
+      |> where([fr], fr.from_id == ^user_id)
+      |> preload(:to)
       |> Repo.all()
+      |> Enum.map(fn friendship -> friendship.to end)
 
-    to_res =
+    from_friends =
       Friendship.from()
-      |> join(:inner, [f], u in User, on: f.from_id == u.id)
-      |> get_friend_query(user_id)
+      |> where([fr], fr.to_id == ^user_id)
+      |> preload(:from)
       |> Repo.all()
+      |> Enum.map(fn friendship -> friendship.from end)
 
-    from_res ++ to_res
-  end
-
-  defp get_friend_query(q, user_id) do
-    q
-    |> where_eq(:status, :approved)
-    |> where_eq(:from_id, user_id)
-    |> select([f, u], {f, u})
+    to_friends ++ from_friends
   end
 
   @doc """
@@ -171,5 +158,11 @@ defmodule Livre.Social do
         (field(fr, :from_id) == ^user2_id and field(fr, :to_id) == ^user1_id)
     )
     |> Repo.one()
+  end
+
+  def friend_suggestion(user_id) do
+    User.from()
+    |> where([u], field(u, :id) != ^user_id)
+    |> Repo.all()
   end
 end

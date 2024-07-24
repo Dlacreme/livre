@@ -123,7 +123,6 @@ defmodule LivreWeb do
       alias LivreWeb.BrandingComponents, as: Branding
       alias LivreWeb.FormComponents, as: Form
       alias LivreWeb.ButtonComponents, as: Button
-      alias LivreWeb.PresenterComponents, as: Presenter
       alias LivreWeb.InteractiveComponents, as: Interactive
       alias LivreWeb.UploadComponents, as: Upload
       alias LivreWeb.PresenterComponents, as: Presenter
