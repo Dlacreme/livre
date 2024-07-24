@@ -20,6 +20,7 @@ defmodule LivreWeb.LayoutComponents do
   def container(assigns) do
     cls_type =
       case Map.get(assigns, :type) do
+        :small -> "max-w-screen-md h-full m-auto"
         :standard -> "max-w-screen-xl h-full m-auto"
         :full -> "w-full h-full"
         :mini -> "max-w-screen-md h-full m-auto"
