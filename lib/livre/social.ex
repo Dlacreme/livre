@@ -62,7 +62,7 @@ defmodule Livre.Social do
 
     to_res =
       Friendship.from()
-      |> join(:inner, [f], u in User, on: f.from_id == u.id)
+      |> join(:inner, [f], u in User, on: f.to_id == u.id)
       |> get_friend_query(user_id)
       |> Repo.all()
 
