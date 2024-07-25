@@ -12,11 +12,17 @@ You will also receive notifications when you get a new friend request or when yo
 
 ```
 mix deps.get
+docker-compose up -d
 mix ecto.setup
 ```
 
 ## Run locally
 
+```
+mix phx.server
+```
+
+Optionally you can set Google secret if you want to login with Google
 ```
 source GOOGLE_CLIENT_SECRET=<GOOGLE_SECRET_SHARED_BY_EMAIL>
 mix phx.server
