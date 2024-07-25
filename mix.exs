@@ -56,6 +56,7 @@ defmodule Livre.MixProject do
       # Database
       {:ecto_sql, "~> 3.10"},
       {:postgrex, ">= 0.0.0"},
+      {:bcrypt_elixir, "~> 3.0"},
       # I18n
       {:gettext, "~> 0.20"},
       # Mailing

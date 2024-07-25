@@ -31,20 +31,6 @@ defmodule LivreWeb.FeedLive do
   end
 
   @impl true
-  def handle_event("remove_notif", %{"id" => notif_id}, socket) do
-    current_user_id = socket.assigns.current_user.id
-    Notification.delete(notif_id)
-    {:noreply, assign(socket, notifications: Notification.list(current_user_id))}
-  end
-
-  @impl true
-  def handle_event("read_notif", %{"id" => notif_id}, socket) do
-    current_user_id = socket.assigns.current_user.id
-    Notification.read(notif_id)
-    {:noreply, assign(socket, notifications: Notification.list(current_user_id))}
-  end
-
-  @impl true
   def handle_event("create", %{"content" => content}, socket) do
     current_user_id = socket.assigns.current_user.id
     Feed.create_post(current_user_id, content)

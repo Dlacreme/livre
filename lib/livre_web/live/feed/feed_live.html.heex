@@ -1,5 +1,5 @@
 <Layout.container>
-  <div class="flex">
+  <div class="flex flex-col-reverse md:flex-row">
     <div class="w-1/4">
       <h3 class="font-bold mb-8"><%= gettext("They are also on Facelivre") %></h3>
       <div class="flex flex-col">
@@ -35,13 +35,15 @@
       <%= for post <- @posts do %>
         <div class="mb-4">
           <div class="flex items-start">
-            <img src={post.user.picture_url} height="50px" width="50px" class="mr-4" />
+            <a href={"/profile/#{post.user.id}"}>
+              <img src={post.user.picture_url} height="50px" width="50px" class="mr-4" />
+            </a>
 
             <div class="flex-grow">
               <div class="flex">
-                <span class="font-bold text-brand flex-grow">
+                <a href={"/profile/#{post.user.id}"} class="font-bold text-brand flex-grow">
                   <%= post.user.name %>
-                </span>
+                </a>
                 <span class="text-slate-500 text-s">
                   <%= format_date(post.inserted_at) %>
                 </span>

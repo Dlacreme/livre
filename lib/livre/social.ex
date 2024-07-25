@@ -51,6 +51,7 @@ defmodule Livre.Social do
     # the user that is not the current user
     to_friends =
       Friendship.from()
+      |> where_eq(:status, :approved)
       |> where([fr], fr.from_id == ^user_id)
       |> preload(:to)
       |> Repo.all()
@@ -58,6 +59,7 @@ defmodule Livre.Social do
 
     from_friends =
       Friendship.from()
+      |> where_eq(:status, :approved)
       |> where([fr], fr.to_id == ^user_id)
       |> preload(:from)
       |> Repo.all()
@@ -127,6 +129,16 @@ defmodule Livre.Social do
     friendship
     |> Friendship.changeset(%{status: :approved, inserted_at: now})
     |> Repo.update()
+    |> Notification.maybe_push(
+      friendship.from_id,
+      "you have a new friend!",
+      "/profile/#{friendship.to_id}"
+    )
+    |> Notification.maybe_push(
+      friendship.to_id,
+      "you have a new friend!",
+      "/profile/#{friendship.from_id}"
+    )
   end
 
   @doc """

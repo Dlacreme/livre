@@ -1,5 +1,5 @@
 <header class="flex bg-brand py-4 px-8">
-  <div class="w-full max-w-screen-xl m-auto flex justify-between items-center">
+  <div class="w-full max-w-screen-xl m-auto flex flex-col md:flex-row justify-between items-center">
     <a href={~p"/"}>
       <Branding.logo />
     </a>
@@ -25,14 +25,12 @@
     <% end %>
     <div class="text-white flex flex-row items-center">
       <%= if @current_user do %>
+        <span class="mr-10">
+          <%= @current_user.name %>
+        </span>
         <Button.simple>
           <.link href={~p"/"} class="flex items-center">
             <span><%= gettext("Home") %></span>
-          </.link>
-        </Button.simple>
-        <Button.simple>
-          <.link href={~p"/profile/me"} class="flex items-center">
-            <span><%= gettext("Profile") %></span>
           </.link>
         </Button.simple>
         <Button.simple>

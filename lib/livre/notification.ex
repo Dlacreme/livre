@@ -79,13 +79,13 @@ defmodule Livre.Notification do
   def list(user_id) when is_binary(user_id) do
     Notification.from()
     |> where_eq(:user_id, user_id)
-    |> order_by([n], n.inserted_at)
+    |> order_by([n], desc: n.inserted_at)
     |> limit(100)
     |> Repo.all()
   end
 
   def read(notif_id) when is_binary(notif_id) do
-    %Notification{id: notif_id}
+    Repo.get!(Notification, notif_id)
     |> Notification.changeset(%{status: :read})
     |> Repo.update()
   end
