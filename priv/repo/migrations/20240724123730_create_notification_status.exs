@@ -1,4 +1,4 @@
-defmodule Livre.Repo.Migrations.CreateFriendsStatusEnum do
+defmodule Livre.Repo.Migrations.CreateNotificationStatusEnum do
   use Ecto.Migration
 
   def change do
