@@ -1,7 +1,7 @@
 <div class="sign-in-gradient h-full">
   <Layout.container class="sign-in-gradient">
     <div class="flex h-full">
-      <div class="w-2/3 flex flex-col justify-center h-full">
+      <div class="w-2/3 flex flex-col justify-center h-full pr-10">
         <p class="text-brand font-semibold mb-12">
           <%= gettext("Facelivre helps you connect and share with the people in your people.") %>
         </p>
@@ -29,12 +29,32 @@
           So, relax, have fun, and enjoy this trip down memory lane. Just don't take it too seriously – it's all in good fun! 😜🎉
         </div>
       </div>
-      <div class="w-1/3 flex flex-col justify-center items-end">
+      <div class="w-1/3 flex flex-col justify-center items-center">
         <Button.google_login>
           <.link class="text-white" href={~p"/sso/login/google"}>
             <%= gettext("login with google") %>
           </.link>
         </Button.google_login>
+        <div class="mt-12">
+          <h3 class="text-center w-full text-brand text-lg font-semibold">
+            <%= gettext("Or using email/password") %>
+          </h3>
+          <p class="mt-2 mb-2">
+            Sorry for the poor implementation of this sign-up form - I've added it quickly to allow you to test easily with multiple accounts without having to go trough Google SSO.
+          </p>
+          <form class="p-4" action="" method="post">
+            <input type="hidden" name="_csrf_token" value={get_csrf_token()} />
+            <input type="text" name="name" class="w-full" placeholder="name" />
+            <input type="email" name="email" class="w-full" placeholder="email" />
+            <input type="password" name="password" class="w-full" placeholder="password" />
+            <div class="w-full mt-2">
+              <Button.simple style={:brand} type="submit" class="w-full">sign up</Button.simple>
+            </div>
+            <%= if @signup_error != nil do %>
+              <div><%= gettext("sign up failed") %></div>
+            <% end %>
+          </form>
+        </div>
       </div>
     </div>
   </Layout.container>

@@ -14,6 +14,8 @@ defmodule Livre.Repo.User do
     field :name, :string
     field :picture_url, :string
     field :deleted_at, :utc_datetime
+    field :password, :string, virtual: true, redact: true
+    field :hashed_password, :string, redact: true
     has_many :notifications, Livre.Repo.Notification
 
     timestamps(type: :utc_datetime)
@@ -46,11 +48,46 @@ defmodule Livre.Repo.User do
   end
 
   @doc false
+  def password_registration_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:email, :username, :password])
+    |> validate_email()
+    |> validate_password()
+  end
+
+  @doc false
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:email, :provider, :provider_id, :name, :picture_url])
     |> validate_required([:email])
     |> unsafe_validate_unique(:email, Livre.Repo)
     |> unique_constraint(:email)
+  end
+
+  defp validate_email(changeset) do
+    changeset
+    |> validate_required([:email])
+    |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
+    |> validate_length(:email, max: 160)
+  end
+
+  defp validate_password(changeset) do
+    changeset
+    |> validate_required([:password])
+    |> validate_length(:password, min: 6, max: 72)
+    |> hash_password()
+  end
+
+  defp hash_password(changeset) do
+    password = get_change(changeset, :password)
+
+    if password && changeset.valid? do
+      changeset
+      |> validate_length(:password, max: 72, count: :bytes)
+      |> put_change(:hashed_password, Bcrypt.hash_pwd_salt(password))
+      |> delete_change(:password)
+    else
+      changeset
+    end
   end
 end

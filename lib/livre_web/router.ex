@@ -35,6 +35,7 @@ defmodule LivreWeb.Router do
 
     scope "/account" do
       get "/login", AccountController, :login
+      post "/login", AccountController, :signup
     end
   end
 
