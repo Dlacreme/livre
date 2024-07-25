@@ -41,7 +41,7 @@ defmodule Livre.Social do
   	...> insert!(:friendship, %{to_id: user.id, status: :approved})
   	...> assert length(Social.get_friends(user.id)) == 2
   """
-  def get_friend(user) when is_struct(user, User) do
+  def get_friends(user) when is_struct(user, User) do
     get_friends(user.id)
   end
 

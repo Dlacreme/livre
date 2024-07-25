@@ -47,13 +47,4 @@ defmodule LivreWeb.FeedLive do
     Feed.comment_post(current_user_id, post_id, post_owner_id, content)
     {:noreply, assign(socket, posts: Feed.get_feed(current_user_id))}
   end
-
-  defp order_comments(comments) when is_list(comments) do
-    comments
-    |> Enum.sort(&(&1.inserted_at < &2.inserted_at))
-  end
-
-  defp format_date(datetime) do
-    Calendar.strftime(datetime, "%I:%M %d-%m-%y")
-  end
 end

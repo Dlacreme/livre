@@ -1,17 +1,30 @@
 <Layout.container>
   <div class="flex">
-    <img src={@user.picture_url} width="200px" height="200px" />
-    <div class="flex w-full">
-      <h1 class="text-xl ml-4 flex-grow"><%= @user.name %></h1>
-      <%= if @myself? == false do %>
-        <.live_component
-          module={LivreWeb.AskFriendComponent}
-          id={"ask-friend-#{@current_user.id}-#{@user.id}"}
-          current_user={@current_user}
-          target_user_id={@user.id}
-          friendship={@friendship}
-        />
-      <% end %>
+    <div>
+      <img src={@user.picture_url} width="200px" height="200px" />
+      <h3 class="font-bold mb-2 mt-8">
+        <%= gettext("friends") %>
+      </h3>
+      <div class="flex flex-col">
+        <Presenter.profile_list users={@friends} />
+      </div>
+    </div>
+    <div class="w-full">
+      <div class="flex w-full">
+        <h1 class="text-xl ml-4 flex-grow"><%= @user.name %></h1>
+        <%= if @myself? == false do %>
+          <.live_component
+            module={LivreWeb.AskFriendComponent}
+            id={"ask-friend-#{@current_user.id}-#{@user.id}"}
+            current_user={@current_user}
+            target_user_id={@user.id}
+            friendship={@friendship}
+          />
+        <% end %>
+      </div>
+      <div class="w-full p-12">
+        <.live_component id="timeline" module={LivreWeb.TimelineLiveComponent} posts={@posts} />
+      </div>
     </div>
   </div>
 </Layout.container>
