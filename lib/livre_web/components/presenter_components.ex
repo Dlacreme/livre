@@ -1,29 +1,41 @@
 defmodule LivreWeb.PresenterComponents do
   use Phoenix.Component
 
-  attr :picture_url, :string, required: true
-  attr :name, :string, required: true
-  attr :link, :string, required: false, default: nil
+  attr :user, :map, required: true
 
   def profile(assigns) do
     ~H"""
     <div>
-      <%= if @link do %>
-        <.link href={@link}>
-          <%= profile_row(assigns) %>
-        </.link>
-      <% else %>
+      <.link href={"/profile/#{@user.id}"}>
         <%= profile_row(assigns) %>
-      <% end %>
+      </.link>
     </div>
     """
   end
 
+  attr :user, :map, required: true
+
   defp profile_row(assigns) do
     ~H"""
     <div class="flex items-start justify-start text-brand font-semibold">
-      <img src={@picture_url} alt={@name} class="w-8 h-8 mr-2 rounded overflow-hidden" />
-      <span><%= @name %></span>
+      <img src={@user.picture_url} alt={@user.name} class="w-8 h-8 mr-2 rounded overflow-hidden" />
+      <span><%= @user.name %></span>
+    </div>
+    """
+  end
+
+  attr :users, :list, default: []
+
+  def profile_list(assigns) do
+    ~H"""
+    <div class="flex flex-col">
+      <%= for user <- @users do %>
+        <div class="mb-2">
+          <%= profile(%{
+            user: user
+          }) %>
+        </div>
+      <% end %>
     </div>
     """
   end

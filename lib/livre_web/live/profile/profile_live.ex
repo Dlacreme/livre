@@ -1,4 +1,5 @@
 defmodule LivreWeb.ProfileLive do
+  alias Livre.Feed
   alias LivreWeb.LiveNotificationHelper
   use LivreWeb, :live_view
 
@@ -10,6 +11,8 @@ defmodule LivreWeb.ProfileLive do
 
   @impl true
   def mount(params, _session, socket) do
+    LiveNotificationHelper.listen(socket.assigns.current_user.id)
+
     socket =
       case get_user(params["id"], socket.assigns.current_user) do
         user when is_struct(user, User) ->
@@ -19,7 +22,9 @@ defmodule LivreWeb.ProfileLive do
             user: user,
             friendship: Social.get_friendship(socket.assigns.current_user.id, user.id),
             myself?: socket.assigns.current_user.id == user.id,
-            notifications: Notification.list(socket.assigns.current_user.id)
+            notifications: Notification.list(socket.assigns.current_user.id),
+            posts: Feed.get_user_posts(user.id),
+            friends: Social.get_friends(user.id)
           )
 
         _any ->
@@ -30,22 +35,24 @@ defmodule LivreWeb.ProfileLive do
   end
 
   @impl true
-  def handle_event("remove_notif", %{"id" => notif_id}, socket) do
-    current_user_id = socket.assigns.current_user.id
-    Notification.delete(notif_id)
-    {:noreply, assign(socket, notifications: Notification.list(current_user_id))}
-  end
-
-  @impl true
-  def handle_event("read_notif", %{"id" => notif_id}, socket) do
-    current_user_id = socket.assigns.current_user.id
-    Notification.read(notif_id)
-    {:noreply, assign(socket, notifications: Notification.list(current_user_id))}
-  end
-
-  @impl true
   def handle_info({:notification, _data}, socket) do
-    {:noreply, assign(socket, notifications: Notification.list(socket.assigns.current_user.id))}
+    {:noreply,
+     assign(socket,
+       posts: Feed.get_user_posts(socket.assigns.user.id),
+       friends: Social.get_friends(socket.assigns.user.id),
+       notifications: Notification.list(socket.assigns.current_user.id)
+     )}
+  end
+
+  @impl true
+  def handle_event(
+        "comment",
+        %{"content" => content, "post_owner_id" => post_owner_id, "post_id" => post_id},
+        socket
+      ) do
+    current_user_id = socket.assigns.current_user.id
+    Feed.comment_post(current_user_id, post_id, post_owner_id, content)
+    {:noreply, assign(socket, posts: Feed.get_user_posts(socket.assigns.user.id))}
   end
 
   defp get_user("me", current_user) do

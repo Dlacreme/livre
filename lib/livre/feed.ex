@@ -10,19 +10,41 @@ defmodule Livre.Feed do
   Get posts for a given user
 
   iex> user = insert!(:user)
+  ...> other_user = insert!(:user)
+  ...> insert!(:friendship, %{from_id: user.id, to_id: other_user.id})
+  ...> {:ok, my_post} = Feed.create_post(user.id, "this is a post")
+  ...> {:ok, friend_post} = Feed.create_post(other_user.id, "this is a post")
+  ...> other_Feed.get_feed(user.id)
+  [my_post, friend_post]
+  """
+  def get_feed(user_id) when is_binary(user_id) do
+    ids =
+      [user_id | get_related_user_ids(user_id)]
+
+    post_query()
+    |> where([p], field(p, :user_id) in ^ids)
+    |> Repo.all()
+  end
+
+  @doc """
+  Get user's posts
+
+  iex> user = insert!(:user)
   ...> {:ok, post} = Feed.create_post(user.id, "this is a post")
   ...> Feed.get_feed(user.id)
   [post]
   """
-  def get_feed(user_id) when is_binary(user_id) do
-    ids = [user_id | get_related_user_ids(user_id)]
+  def get_user_posts(user_id) when is_binary(user_id) do
+    post_query()
+    |> where_eq(:user_id, user_id)
+    |> Repo.all()
+  end
 
+  defp post_query() do
     Post.from()
-    |> where([p], field(p, :user_id) in ^ids)
     |> preload(:user)
     |> preload(comments: :user)
     |> order_by([p], desc: p.inserted_at)
-    |> Repo.all()
   end
 
   @doc """
