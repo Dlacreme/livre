@@ -43,18 +43,6 @@ config :livre, LivreWeb.SSO,
     client_secret: ""
   ]
 
-config :ex_aws,
-  debug_requests: true,
-  region: "local"
-
-config :ex_aws, :minio,
-  scheme: "http://",
-  host: "localhost",
-  port: 9000,
-  region: "local",
-  access_key_id: "minio",
-  secret_access_key: "minio123"
-
 # ## Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
